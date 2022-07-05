@@ -9,7 +9,7 @@ using System.Text;
 
 namespace AuthProvider.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -30,9 +30,11 @@ namespace AuthProvider.Controllers
 
                 var authClaims = new List<Claim>
                 {
-                    new Claim("Name", model.Name),
-                    new Claim("Email", model.Email),
+                    new Claim(ClaimTypes.Name, model.Name),
+                    new Claim(ClaimTypes.Email, model.Email),
                     new Claim(ClaimTypes.Role, model.RoleType.ToString()),
+                    new Claim(ClaimTypes.DateOfBirth, DateTime.Now.AddYears(-20).ToString()),
+                    new Claim("Qualification", "BTech"),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 

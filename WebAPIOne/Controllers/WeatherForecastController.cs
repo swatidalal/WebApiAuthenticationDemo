@@ -19,6 +19,7 @@ namespace WebAPIOne.Controllers
 
 
         [HttpGet]
+        [Authorize(Policy = "RequireMultipleRoles")]
         public List<Weather> GetWeather()
         {
             List<Weather> weatherList = new List<Weather>();
@@ -33,10 +34,18 @@ namespace WebAPIOne.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = "Viewer")]
         public ActionResult Hello()
         {
-            return Ok("Hi SWATI");
+            return Ok("Hi Swati");
+        }
+
+
+        [HttpGet]
+        [Authorize(Policy = "AgeOver18")]
+        public ActionResult CheckMultipleRoles()
+        {
+            return Ok("Hi From Custom Policies");
         }
 
 
